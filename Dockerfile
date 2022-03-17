@@ -110,6 +110,8 @@ RUN set -eux && \
     -O ${DOWNLOAD_SRC}/percona-server-common_${MYSQL_VERSION}-1.buster_amd64.deb && \
     wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/percona-server-client_${MYSQL_VERSION}-1.buster_amd64.deb \
     -O ${DOWNLOAD_SRC}/percona-server-client_${MYSQL_VERSION}-1.buster_amd64.deb && \
+    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/libperconaserverclient21_${MYSQL_VERSION}-1.buster_amd64.deb \
+    -O ${DOWNLOAD_SRC}/libperconaserverclient21_${MYSQL_VERSION}-1.buster_amd64.deb && \
     wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/libperconaserverclient21-dev_${MYSQL_VERSION}-1.buster_amd64.deb \
     -O ${DOWNLOAD_SRC}/libperconaserverclient21-dev_${MYSQL_VERSION}-1.buster_amd64.deb && \
     wget --no-check-certificate https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-${XtraBackup_VERSION}/binary/debian/buster/x86_64/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-buster-x86_64-bundle.tar \
