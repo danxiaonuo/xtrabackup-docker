@@ -110,12 +110,12 @@ RUN set -eux && \
     -O ${DOWNLOAD_SRC}/percona-server-common_${MYSQL_VERSION}-1.buster_amd64.deb && \
     wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/percona-server-client_${MYSQL_VERSION}-1.buster_amd64.deb \
     -O ${DOWNLOAD_SRC}/percona-server-client_${MYSQL_VERSION}-1.buster_amd64.deb && \
-    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-${XtraBackup_VERSION}/binary/debian/buster/x86_64/percona-xtrabackup-${XtraBackup_VERSION}-1.buster_amd64.deb \
-    -O ${DOWNLOAD_SRC}/percona-xtrabackup-${XtraBackup_VERSION}-1.buster_amd64.deb && \
+    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-${XtraBackup_VERSION}/binary/debian/buster/x86_64/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-buster-x86_64-bundle.tar \
+    -O ${DOWNLOAD_SRC}/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-buster-x86_64-bundle.tar && \
     # 安装XtraBackup
-    dpkg -i ${DOWNLOAD_SRC}/*.deb && \
+    cd ${DOWNLOAD_SRC} && tar xvf Percona-*.tar && dpkg -i ${DOWNLOAD_SRC}/*.deb && \
     # 删除临时文件
-    rm -rf /var/lib/apt/lists/* ${DOWNLOAD_SRC}/*.deb && \
+    rm -rf /var/lib/apt/lists/* ${DOWNLOAD_SRC}/*.deb *.tar && \
     # 创建mysql相关目录文件并授权
     rm -rf /etc/my.cnf /etc/mysql /etc/my.cnf.d
 
