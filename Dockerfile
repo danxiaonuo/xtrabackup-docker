@@ -81,7 +81,6 @@ ARG PKG_DEPS="\
     libev4 \
     python \
     zlib1g-dev \
-    libperconaserverclient21 \
     ca-certificates"
 ENV PKG_DEPS=$PKG_DEPS
 
