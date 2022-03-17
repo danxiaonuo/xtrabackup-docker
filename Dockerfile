@@ -80,6 +80,8 @@ ARG PKG_DEPS="\
     libcurl4-openssl-dev \
     libev4 \
     python \
+    zlib1g-dev \
+    libperconaserverclient21 \
     ca-certificates"
 ENV PKG_DEPS=$PKG_DEPS
 
