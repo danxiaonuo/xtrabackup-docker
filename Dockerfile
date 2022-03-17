@@ -113,7 +113,7 @@ RUN set -eux && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf ${DOWNLOAD_SRC}/*.deb *.tar && \
     # 创建mysql相关目录文件并授权
-    rm -rf ${MYSQL_DIR} /etc/my.cnf /etc/mysql /etc/my.cnf.d
+    rm -rf /etc/my.cnf /etc/mysql /etc/my.cnf.d
 
 # ***** 容器信号处理 *****
 STOPSIGNAL SIGQUIT
@@ -122,4 +122,4 @@ STOPSIGNAL SIGQUIT
 EXPOSE 3307
 
 # ***** 执行命令 *****
-CMD ["mysqld"]
+CMD ["/usr/bin/zsh"]
