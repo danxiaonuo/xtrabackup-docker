@@ -55,7 +55,7 @@ ARG PKG_DEPS="\
     dnsutils \
     iproute2 \
     net-tools \
-	netcat \
+    netcat \
     git \
     vim \
     tzdata \
@@ -76,6 +76,10 @@ ARG PKG_DEPS="\
     psmisc \
     libmecab2 \
     debsums \
+    libdbd-mysql-perl \
+    libcurl4-openssl-dev \
+    libev4 \
+    python \
     ca-certificates"
 ENV PKG_DEPS=$PKG_DEPS
 
@@ -101,11 +105,12 @@ RUN set -eux && \
     
 # ***** 下载 *****
 RUN set -eux && \
+    # 下载安装包
     wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/percona-server-common_${MYSQL_VERSION}-1.buster_amd64.deb \
     -O ${DOWNLOAD_SRC}/percona-server-common_${MYSQL_VERSION}-1.buster_amd64.deb && \
     wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/percona-server-client_${MYSQL_VERSION}-1.buster_amd64.deb \
     -O ${DOWNLOAD_SRC}/percona-server-client_${MYSQL_VERSION}-1.buster_amd64.deb && \
-	wget --no-check-certificate https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-${XtraBackup_VERSION}/binary/debian/buster/x86_64/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-buster-x86_64-bundle.tar \
+    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-${XtraBackup_VERSION}/binary/debian/buster/x86_64/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-buster-x86_64-bundle.tar \
     -O ${DOWNLOAD_SRC}/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-buster-x86_64-bundle.tar && \
     # 安装XtraBackup
     cd ${DOWNLOAD_SRC} && tar xvf Percona-*.tar && dpkg -i ${DOWNLOAD_SRC}/*.deb && \
