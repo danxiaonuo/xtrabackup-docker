@@ -1,5 +1,5 @@
 #=================================================
-# https://github.com/danxiaonuo/mysql-docker
+# https://github.com/danxiaonuo/xtrabackup-docker
 # Lisence: MIT
 # Author: danxiaonuo
 # Blog: https://www.danxiaonuo.com
@@ -19,9 +19,9 @@ on:
   workflow_dispatch:
     inputs:
       build:
-        description: 'build mysql'
+        description: 'build xtrabackup'
         required: true
-        default: 'build mysql'
+        default: 'build xtrabackup'
   # 定时触发编译(每天早5点)
   schedule:
      - cron: '0 21 * * *'
@@ -74,7 +74,7 @@ jobs:
         file: ./Dockerfile
         platforms: linux/amd64
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/mysql:${{ matrix.DOCKER_TAG }}
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/xtrabackup:${{ matrix.DOCKER_TAG }}
       
     - name: 上传至阿里云
       id: buildAndPushImage
@@ -82,7 +82,7 @@ jobs:
       with:
         registry_url: 'registry.cn-hongkong.aliyuncs.com'
         namespaces: 'danxiaonuo'
-        repository_name: 'mysql'
+        repository_name: 'xtrabackup'
         user_name: ${{ secrets.ALIYUN_USERNAME }}
         password: ${{ secrets.ALIYUN_PASSWORD }}
         image_version: ${{ matrix.DOCKER_TAG }}
