@@ -55,7 +55,7 @@ ARG PKG_DEPS="\
     dnsutils \
     iproute2 \
     net-tools \
-    netcat \
+    ncat \
     git \
     vim \
     tzdata \
