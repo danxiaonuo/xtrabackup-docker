@@ -36,7 +36,8 @@ ENV XtraBackup_VERSION=$XtraBackup_VERSION
 # 工作目录
 ARG MYSQL_DIR=/var/lib/mysql
 ENV MYSQL_DIR=$MYSQL_DIR
-ARG MYSQL_DATA=/var/lib/mysql/data
+# 数据目录
+ARG MYSQL_DATA=/var/lib/mysql
 ENV MYSQL_DATA=$MYSQL_DATA
 
 # 环境设置
@@ -131,4 +132,4 @@ STOPSIGNAL SIGQUIT
 EXPOSE 3307
 
 # ***** 执行命令 *****
-CMD ["/usr/bin/zsh"]
+CMD ["/bin/zsh"]
