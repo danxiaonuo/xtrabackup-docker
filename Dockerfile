@@ -122,7 +122,6 @@ RUN set -eux && \
     cd ${DOWNLOAD_SRC} && tar xvf Percona-*.tar && dpkg -i ${DOWNLOAD_SRC}/*.deb && \
     # 删除临时文件
     rm -rf /var/lib/apt/lists/* ${DOWNLOAD_SRC}/*.deb *.tar && \
-    # 创建mysql相关目录文件并授权
     rm -rf /etc/my.cnf /etc/mysql /etc/my.cnf.d
 
 # ***** 容器信号处理 *****
