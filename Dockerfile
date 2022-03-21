@@ -27,6 +27,12 @@ ENV MYSQL_MAJOR=$MYSQL_MAJOR
 ARG MYSQL_VERSION=${MYSQL_MAJOR}.27-18
 ENV MYSQL_VERSION=$MYSQL_VERSION
 
+# mysql-shell版本号
+ARG MYSQL_SHELL_MAJOR=8.0
+ENV MYSQL_SHELL_MAJOR=$MYSQL_SHELL_MAJOR
+ARG MYSQL_SHELL_VERSION=${MYSQL_SHELL_MAJOR}.28
+ENV MYSQL_SHELL_VERSION=$MYSQL_SHELL_VERSION
+
 # xtrabackup版本号
 ARG XtraBackup_MAJOR=8.0
 ENV XtraBackup_MAJOR=$XtraBackup_MAJOR
@@ -118,6 +124,8 @@ RUN set -eux && \
     -O ${DOWNLOAD_SRC}/libperconaserverclient21-dev_${MYSQL_VERSION}-1.buster_amd64.deb && \
     wget --no-check-certificate https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-${XtraBackup_VERSION}/binary/debian/buster/x86_64/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-buster-x86_64-bundle.tar \
     -O ${DOWNLOAD_SRC}/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-buster-x86_64-bundle.tar && \
+    wget --no-check-certificate https://cdn.mysql.com//Downloads/MySQL-Shell/mysql-shell_${MYSQL_SHELL_VERSION}-1debian10_amd64.deb \
+    -O ${DOWNLOAD_SRC}/mysql-shell_${MYSQL_SHELL_VERSION}-1debian10_amd64.deb && \
     # 安装XtraBackup
     cd ${DOWNLOAD_SRC} && tar xvf Percona-*.tar && dpkg -i ${DOWNLOAD_SRC}/*.deb && \
     # 删除临时文件
