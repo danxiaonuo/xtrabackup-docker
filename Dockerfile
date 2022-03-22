@@ -124,6 +124,7 @@ RUN set -eux && \
     wget --no-check-certificate https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-common_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb \
     -O ${DOWNLOAD_SRC}/mysql-common_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb && \
     wget --no-check-certificate https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-${XtraBackup_VERSION}/binary/debian/focal/x86_64/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-focal-x86_64-bundle.tar \
+    -O ${DOWNLOAD_SRC}/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-focal-x86_64-bundle.tar && \
     # 安装XtraBackup
     cd ${DOWNLOAD_SRC} && tar xvf Percona-*.tar && dpkg -i ${DOWNLOAD_SRC}/*.deb && \
     # 删除临时文件
