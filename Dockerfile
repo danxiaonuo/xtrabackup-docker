@@ -113,7 +113,6 @@ RUN set -eux && \
    locale-gen en_US.UTF-8 && localedef -f UTF-8 -i en_US en_US.UTF-8 && locale-gen && \
    /bin/zsh
 
-    
 # ***** 下载 *****
 RUN set -eux && \
     # 下载安装包
@@ -127,8 +126,8 @@ RUN set -eux && \
     -O ${DOWNLOAD_SRC}/libperconaserverclient21-dev_${MYSQL_VERSION}-1.focal_amd64.deb && \
     wget --no-check-certificate https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-${XtraBackup_VERSION}/binary/debian/focal/x86_64/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-focal-x86_64-bundle.tar \
     -O ${DOWNLOAD_SRC}/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-focal-x86_64-bundle.tar && \
-    wget --no-check-certificate https://cdn.mysql.com/Downloads/MySQL-Shell/mysql-shell_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb \
-    -O ${DOWNLOAD_SRC}/mysql-shell_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb && \
+    wget --no-check-certificate https://cdn.mysql.com/Downloads/MySQL-Shell/mysql-shell_${MYSQL_SHELL_VERSION}-1ubuntu20.04_amd64.deb \
+    -O ${DOWNLOAD_SRC}/mysql-shell_${MYSQL_SHELL_VERSION}-1ubuntu20.04_amd64.deb && \
     # 安装XtraBackup
     cd ${DOWNLOAD_SRC} && tar xvf Percona-*.tar && dpkg -i ${DOWNLOAD_SRC}/*.deb && \
     # 删除临时文件
