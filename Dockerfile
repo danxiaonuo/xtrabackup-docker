@@ -95,8 +95,6 @@ ENV PKG_DEPS=$PKG_DEPS
 
 # ***** 安装依赖 *****
 RUN set -eux && \
-   # 更换源地址
-   sed -i s#http://*.*ubuntu.com#https://mirrors.ustc.edu.cn#g /etc/apt/sources.list && \
    # 更新源地址并更新系统软件
    apt-get update -qqy && apt-get upgrade -qqy && \
    # 安装依赖包
