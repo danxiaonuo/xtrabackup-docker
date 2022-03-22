@@ -24,14 +24,8 @@ ENV DOCKER_IMAGE_TAG=$DOCKER_IMAGE_TAG
 # mysql版本号
 ARG MYSQL_MAJOR=8.0
 ENV MYSQL_MAJOR=$MYSQL_MAJOR
-ARG MYSQL_VERSION=${MYSQL_MAJOR}.27-18
+ARG MYSQL_VERSION=${MYSQL_MAJOR}.28
 ENV MYSQL_VERSION=$MYSQL_VERSION
-
-# mysql-shell版本号
-ARG MYSQL_SHELL_MAJOR=8.0
-ENV MYSQL_SHELL_MAJOR=$MYSQL_SHELL_MAJOR
-ARG MYSQL_SHELL_VERSION=${MYSQL_SHELL_MAJOR}.28
-ENV MYSQL_SHELL_VERSION=$MYSQL_SHELL_VERSION
 
 # xtrabackup版本号
 ARG XtraBackup_MAJOR=8.0
@@ -113,21 +107,23 @@ RUN set -eux && \
    locale-gen en_US.UTF-8 && localedef -f UTF-8 -i en_US en_US.UTF-8 && locale-gen && \
    /bin/zsh
 
-# ***** 下载 *****
 RUN set -eux && \
-    # 下载安装包
-    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/percona-server-common_${MYSQL_VERSION}-1.focal_amd64.deb \
-    -O ${DOWNLOAD_SRC}/percona-server-common_${MYSQL_VERSION}-1.focal_amd64.deb && \
-    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/percona-server-client_${MYSQL_VERSION}-1.focal_amd64.deb \
-    -O ${DOWNLOAD_SRC}/percona-server-client_${MYSQL_VERSION}-1.focal_amd64.deb && \
-    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/libperconaserverclient21_${MYSQL_VERSION}-1.focal_amd64.deb \
-    -O ${DOWNLOAD_SRC}/libperconaserverclient21_${MYSQL_VERSION}-1.focal_amd64.deb && \
-    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/libperconaserverclient21-dev_${MYSQL_VERSION}-1.focal_amd64.deb \
-    -O ${DOWNLOAD_SRC}/libperconaserverclient21-dev_${MYSQL_VERSION}-1.focal_amd64.deb && \
+    # 下载mysql
+    wget --no-check-certificate https://cdn.mysql.com/Downloads/MySQL-8.0/libmysqlclient21_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb \
+    -O ${DOWNLOAD_SRC}/libmysqlclient21_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb && \
+    wget --no-check-certificate https://cdn.mysql.com/Downloads/MySQL-8.0/libmysqlclient-dev_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb \
+    -O ${DOWNLOAD_SRC}/libmysqlclient-dev_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb && \
+    wget --no-check-certificate https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-client_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb \
+    -O ${DOWNLOAD_SRC}/mysql-client_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb && \
+    wget --no-check-certificate https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-community-client_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb \
+    -O ${DOWNLOAD_SRC}/mysql-community-client_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb && \
+    wget --no-check-certificate https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-community-client-core_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb \
+    -O ${DOWNLOAD_SRC}/mysql-community-client-core_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb && \
+    wget --no-check-certificate https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-community-client-plugins_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb \
+    -O ${DOWNLOAD_SRC}/mmysql-community-client-plugins_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb  && \   
+    wget --no-check-certificate https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-common_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb \
+    -O ${DOWNLOAD_SRC}/mysql-common_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb && \
     wget --no-check-certificate https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-${XtraBackup_VERSION}/binary/debian/focal/x86_64/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-focal-x86_64-bundle.tar \
-    -O ${DOWNLOAD_SRC}/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-focal-x86_64-bundle.tar && \
-    wget --no-check-certificate https://cdn.mysql.com/Downloads/MySQL-Shell/mysql-shell_${MYSQL_SHELL_VERSION}-1ubuntu20.04_amd64.deb \
-    -O ${DOWNLOAD_SRC}/mysql-shell_${MYSQL_SHELL_VERSION}-1ubuntu20.04_amd64.deb && \
     # 安装XtraBackup
     cd ${DOWNLOAD_SRC} && tar xvf Percona-*.tar && dpkg -i ${DOWNLOAD_SRC}/*.deb && \
     # 删除临时文件
