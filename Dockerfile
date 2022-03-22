@@ -1,8 +1,8 @@
 #############################
 #     设置公共的变量         #
 #############################
-ARG BASE_IMAGE_TAG=buster-slim
-FROM debian:${BASE_IMAGE_TAG}
+ARG BASE_IMAGE_TAG=20.04
+FROM ubuntu:${BASE_IMAGE_TAG}
 
 # 作者描述信息
 MAINTAINER danxiaonuo
@@ -16,9 +16,9 @@ ENV LANG=$LANG
 # 镜像变量
 ARG DOCKER_IMAGE=danxiaonuo/xtrabackup
 ENV DOCKER_IMAGE=$DOCKER_IMAGE
-ARG DOCKER_IMAGE_OS=debian
+ARG DOCKER_IMAGE_OS=ubuntu
 ENV DOCKER_IMAGE_OS=$DOCKER_IMAGE_OS
-ARG DOCKER_IMAGE_TAG=buster-slim
+ARG DOCKER_IMAGE_TAG=20.04
 ENV DOCKER_IMAGE_TAG=$DOCKER_IMAGE_TAG
 
 # mysql版本号
@@ -96,7 +96,7 @@ ENV PKG_DEPS=$PKG_DEPS
 # ***** 安装依赖 *****
 RUN set -eux && \
    # 更换源地址
-   sed -i s#deb.debian.org#mirrors.aliyun.com#g /etc/apt/sources.list && \
+   sed -i s#http://*.*ubuntu.com#https://mirrors.ustc.edu.cn#g /etc/apt/sources.list && \
    # 更新源地址并更新系统软件
    apt-get update -qqy && apt-get upgrade -qqy && \
    # 安装依赖包
@@ -112,7 +112,6 @@ RUN set -eux && \
    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true && \
    sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd && \
    sed -i -e 's/mouse=/mouse-=/g' /usr/share/vim/vim*/defaults.vim && \
-   dpkg-reconfigure locales && \
    locale-gen en_US.UTF-8 && localedef -f UTF-8 -i en_US en_US.UTF-8 && locale-gen && \
    /bin/zsh
 
@@ -120,18 +119,18 @@ RUN set -eux && \
 # ***** 下载 *****
 RUN set -eux && \
     # 下载安装包
-    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/percona-server-common_${MYSQL_VERSION}-1.buster_amd64.deb \
-    -O ${DOWNLOAD_SRC}/percona-server-common_${MYSQL_VERSION}-1.buster_amd64.deb && \
-    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/percona-server-client_${MYSQL_VERSION}-1.buster_amd64.deb \
-    -O ${DOWNLOAD_SRC}/percona-server-client_${MYSQL_VERSION}-1.buster_amd64.deb && \
-    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/libperconaserverclient21_${MYSQL_VERSION}-1.buster_amd64.deb \
-    -O ${DOWNLOAD_SRC}/libperconaserverclient21_${MYSQL_VERSION}-1.buster_amd64.deb && \
-    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/libperconaserverclient21-dev_${MYSQL_VERSION}-1.buster_amd64.deb \
-    -O ${DOWNLOAD_SRC}/libperconaserverclient21-dev_${MYSQL_VERSION}-1.buster_amd64.deb && \
-    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-${XtraBackup_VERSION}/binary/debian/buster/x86_64/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-buster-x86_64-bundle.tar \
-    -O ${DOWNLOAD_SRC}/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-buster-x86_64-bundle.tar && \
-    wget --no-check-certificate https://cdn.mysql.com//Downloads/MySQL-Shell/mysql-shell_${MYSQL_SHELL_VERSION}-1debian10_amd64.deb \
-    -O ${DOWNLOAD_SRC}/mysql-shell_${MYSQL_SHELL_VERSION}-1debian10_amd64.deb && \
+    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/percona-server-common_${MYSQL_VERSION}-1.focal_amd64.deb \
+    -O ${DOWNLOAD_SRC}/percona-server-common_${MYSQL_VERSION}-1.focal_amd64.deb && \
+    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/percona-server-client_${MYSQL_VERSION}-1.focal_amd64.deb \
+    -O ${DOWNLOAD_SRC}/percona-server-client_${MYSQL_VERSION}-1.focal_amd64.deb && \
+    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/libperconaserverclient21_${MYSQL_VERSION}-1.focal_amd64.deb \
+    -O ${DOWNLOAD_SRC}/libperconaserverclient21_${MYSQL_VERSION}-1.focal_amd64.deb && \
+    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-Server-LATEST/Percona-Server-${MYSQL_VERSION}/binary/debian/buster/x86_64/libperconaserverclient21-dev_${MYSQL_VERSION}-1.focal_amd64.deb \
+    -O ${DOWNLOAD_SRC}/libperconaserverclient21-dev_${MYSQL_VERSION}-1.focal_amd64.deb && \
+    wget --no-check-certificate https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-${XtraBackup_VERSION}/binary/debian/focal/x86_64/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-focal-x86_64-bundle.tar \
+    -O ${DOWNLOAD_SRC}/Percona-XtraBackup-${XtraBackup_VERSION}-r50dbc8dadda-focal-x86_64-bundle.tar && \
+    wget --no-check-certificate https://cdn.mysql.com/Downloads/MySQL-Shell/mysql-shell_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb \
+    -O ${DOWNLOAD_SRC}/mysql-shell_${MYSQL_VERSION}-1ubuntu20.04_amd64.deb && \
     # 安装XtraBackup
     cd ${DOWNLOAD_SRC} && tar xvf Percona-*.tar && dpkg -i ${DOWNLOAD_SRC}/*.deb && \
     # 删除临时文件
