@@ -10,7 +10,7 @@ MAINTAINER danxiaonuo
 ARG TZ=Asia/Shanghai
 ENV TZ=$TZ
 # 语言设置
-ARG LANG=C.UTF-8
+ARG LANG=en_US.UTF-8
 ENV LANG=$LANG
 
 # 镜像变量
@@ -88,6 +88,8 @@ ARG PKG_DEPS="\
     libev4 \
     python \
     zlib1g-dev \
+    locales \
+    language-pack-zh-hans \
     ca-certificates"
 ENV PKG_DEPS=$PKG_DEPS
 
@@ -108,6 +110,7 @@ RUN set -eux && \
    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true && \
    sed -i -e "s/bin\/ash/bin\/zsh/" /etc/passwd && \
    sed -i -e 's/mouse=/mouse-=/g' /usr/share/vim/vim*/defaults.vim && \
+   locale-gen en_US.UTF-8 && localedef -f UTF-8 -i en_US en_US.UTF-8 && locale-gen && \
    /bin/zsh
 
     
