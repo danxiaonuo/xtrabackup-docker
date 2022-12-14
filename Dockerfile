@@ -80,7 +80,6 @@ ARG PKG_DEPS="\
     libdbd-mysql-perl \
     libcurl4-openssl-dev \
     libev4 \
-    python \
     zlib1g-dev \
     locales \
     language-pack-zh-hans \
